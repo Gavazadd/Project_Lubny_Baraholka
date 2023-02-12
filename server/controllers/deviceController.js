@@ -1,20 +1,17 @@
-const uuid = require('uuid')
-const path = require('path')
 const {Device, DeviceInfo} = require('../models/models')
 const ApiError = require('../error/ApiError')
+const imgService = require("../services/imgService/create-img");
 
 class DeviceController {
   async create(req, res, next) {
     try{
-      let {name, price, categoryId, offerTypeId, info} =  req.body
+      let {name, price, userId, categoryId, offerTypeId, info} =  req.body
       const {img} = req.files
-      let filename = uuid.v4() + '.jpg'
-      await img.mv(path.resolve(__dirname, '..', 'static', filename))
-      const device = await Device.create({name, price, categoryId, offerTypeId, img: filename})
+      const createdImg = await imgService.createImg(img)
+      const device = await Device.create({name, price, userId, categoryId, offerTypeId, img: createdImg})
 
       if (info) {
-        info = JSON.parse(info)
-        info.forEach(i =>
+        JSON.parse(info).forEach(i =>
           DeviceInfo.create({
             title: i.title,
             description: i.description,
@@ -29,7 +26,6 @@ class DeviceController {
   }
 
   async getAll(req, res) {
-    console.log(req.query)
     let {categoryId, offerTypeId, limit, page} = req.query
     page = page || 1
     limit = limit || 9

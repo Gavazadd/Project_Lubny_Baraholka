@@ -14,7 +14,7 @@ import jwtDecode from "jwt-decode";
 const NavBar = observer(() => {
   const {user} = useContext(Context)
 
-  let role = false
+  let role
 
   if (user.isAuth){
    role = jwtDecode(localStorage.getItem('token')).role;

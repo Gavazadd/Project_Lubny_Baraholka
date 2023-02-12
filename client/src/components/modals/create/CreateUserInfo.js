@@ -1,22 +1,24 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Modal from "react-bootstrap/Modal";
-import {Button, Dropdown, Form, Row, Col} from "react-bootstrap";
+import {Button, Form, Row, Col} from "react-bootstrap";
 import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
-import {fetchCategories, fetchOfferTypes} from "../../../http/adminAPI";
-import {createDevice, fetchDevices} from "../../../http/deviceAPI";
+import {createProfile} from "../../../http/profileAPI";
+import jwtDecode from "jwt-decode";
 
 const CreateDevice = observer(({show, onHide}) => {
-  const {device} = useContext(Context)
+  const {user} = useContext(Context)
+
+  let id
+  if (user.isAuth){
+    id = jwtDecode(localStorage.getItem('token')).id;
+  }
+
+
   const [name, setName] = useState('')
-  const [price, setPrice] = useState('')
+  const [phone, setPhone] = useState('')
   const [file, setFile] = useState(null)
   const [info, setInfo] = useState([])
-
-  useEffect(() => {
-    fetchCategories().then(data => device.setCategories(data))
-    fetchOfferTypes().then(data => device.setOfferTypes(data))
-  }, [])
 
   const addInfo = () => {
     setInfo([...info, {title: '', description: '', number: Date.now()}])
@@ -32,15 +34,14 @@ const CreateDevice = observer(({show, onHide}) => {
     setFile(e.target.files[0])
   }
 
-  const addDevice = () => {
+  const addProfileInfo = () => {
     const formData = new FormData()
     formData.append('name', name)
-    formData.append('price', price)
+    formData.append('phone', phone)
     formData.append('img', file)
-    formData.append('categoryId', device.selectedCategory.id)
-    formData.append('offerTypeId', device.selectedOfferType.id)
+    formData.append('userId', id)
     formData.append('info', JSON.stringify(info))
-    createDevice(formData).then(data => onHide())
+    createProfile(formData).then(data => onHide())
   }
 
   return (
@@ -51,7 +52,7 @@ const CreateDevice = observer(({show, onHide}) => {
     >
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
-          Добавитити інформацію про себе
+          Добавити інформацію користувача
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -62,29 +63,24 @@ const CreateDevice = observer(({show, onHide}) => {
             onChange={e => setName(e.target.value)}
             placeholder="Уведіть ваше ім'я"
           />
-          <Row>
-            <Col md={4}>
-              <Form.Control
-                className="mt-3"
-                placeholder="+380"
-              />
-            </Col>
-            <Col md={4}>
-              <Form.Control
-                value={price}
-                className="mt-3"
-                onChange={e => setPrice(Number(e.target.value))}
-                placeholder="Уведіть ваш номер телефону"
-                type="number"
-              />
-            </Col>
-          </Row>
+          <Form.Control
+            value={phone}
+            className="mt-3"
+            onChange={e => setPhone(Number(e.target.value))}
+            placeholder="Уведіть ваш номер телефону"
+            type="number"
+          />
+          <Form.Control
+            className="mt-3"
+            onChange={selectFile}
+            type="file"
+          />
           <hr/>
           <Button
             variant={"outline-dark"}
             onClick={addInfo}
           >
-            Добавить новое свойство
+            Добавити характеристики
           </Button>
           {info.map(i =>
             <Row className="mt-4" key={i.number}>
@@ -92,14 +88,14 @@ const CreateDevice = observer(({show, onHide}) => {
                 <Form.Control
                   value={i.title}
                   onChange={(e) => changeInfo('title', e.target.value, i.number)}
-                  placeholder="Введите название свойства"
+                  placeholder="Уведіть назву"
                 />
               </Col>
               <Col md={4}>
                 <Form.Control
                   value={i.description}
                   onChange={(e) => changeInfo('description', e.target.value, i.number)}
-                  placeholder="Введите описание свойства"
+                  placeholder="Уведіть опис"
                 />
               </Col>
               <Col md={4}>
@@ -107,7 +103,7 @@ const CreateDevice = observer(({show, onHide}) => {
                   onClick={() => removeInfo(i.number)}
                   variant={"outline-danger"}
                 >
-                  Удалить
+                  Видалити
                 </Button>
               </Col>
             </Row>
@@ -115,8 +111,8 @@ const CreateDevice = observer(({show, onHide}) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="outline-success" onClick={addDevice}>Добавить</Button>
-        <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
+        <Button variant="outline-success" onClick={addProfileInfo}>Добавити</Button>
+        <Button variant="outline-danger" onClick={onHide}>Закрити</Button>
       </Modal.Footer>
     </Modal>
   );

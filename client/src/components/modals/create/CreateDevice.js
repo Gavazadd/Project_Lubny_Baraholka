@@ -5,9 +5,17 @@ import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
 import {fetchCategories, fetchOfferTypes} from "../../../http/adminAPI";
 import {createDevice, fetchDevices} from "../../../http/deviceAPI";
+import jwtDecode from "jwt-decode";
 
 const CreateDevice = observer(({show, onHide}) => {
   const {device} = useContext(Context)
+  const {user} = useContext(Context)
+
+  let id
+  if (user.isAuth){
+    id = jwtDecode(localStorage.getItem('token')).id;
+  }
+
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [file, setFile] = useState(null)
@@ -37,6 +45,7 @@ const CreateDevice = observer(({show, onHide}) => {
     formData.append('name', name)
     formData.append('price', price)
     formData.append('img', file)
+    formData.append('userId', id)
     formData.append('categoryId', device.selectedCategory.id)
     formData.append('offerTypeId', device.selectedOfferType.id)
     formData.append('info', JSON.stringify(info))

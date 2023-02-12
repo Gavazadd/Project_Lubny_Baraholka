@@ -13,7 +13,8 @@ const User = sequelize.define('user', {
 const UserInfo = sequelize.define('user_info', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   name: {type: DataTypes.STRING, allowNull: false},
-  phone: {type: DataTypes.INTEGER, unique: true, allowNull: false }
+  phone: {type: DataTypes.INTEGER, unique: true, allowNull: false },
+  img: {type: DataTypes.STRING, allowNull: false}
 })
 
 const UserAdditionalInfo = sequelize.define('user_additional_info', {
@@ -29,6 +30,12 @@ const Device = sequelize.define('device', {
   img: {type: DataTypes.STRING, allowNull: false}
 })
 
+const DeviceInfo = sequelize.define('device_info', {
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  title: {type: DataTypes.STRING, allowNull: false},
+  description: {type: DataTypes.STRING, allowNull: false}
+})
+
 const Category = sequelize.define('category', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   name: {type: DataTypes.STRING, unique: true, allowNull: false}
@@ -39,12 +46,6 @@ const OfferType = sequelize.define('offer_type', {
   name: {type: DataTypes.STRING, unique: true, allowNull: false}
 })
 
-const DeviceInfo = sequelize.define('device_info', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  title: {type: DataTypes.STRING, allowNull: false},
-  description: {type: DataTypes.STRING, allowNull: false}
-})
-
 const CategoryType = sequelize.define('category_type', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
 })
@@ -52,8 +53,8 @@ const CategoryType = sequelize.define('category_type', {
 User.hasOne(UserInfo)
 UserInfo.belongsTo(User)
 
-User.hasOne(UserAdditionalInfo)
-UserAdditionalInfo.belongsTo(User)
+UserInfo.hasOne(UserAdditionalInfo)
+UserAdditionalInfo.belongsTo(UserInfo)
 
 User.hasMany(Device)
 Device.belongsTo(User)
@@ -77,5 +78,6 @@ module.exports = {
   OfferType,
   CategoryType,
   DeviceInfo,
-  UserInfo
+  UserInfo,
+  UserAdditionalInfo
 }

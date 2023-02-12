@@ -3,12 +3,10 @@ import {Button, Card, Col, Container, Image, Row} from "react-bootstrap";
 import jwtDecode from "jwt-decode";
 import {Context} from "../index";
 import CreateUserInfo from "../components/modals/create/CreateUserInfo";
-import CreateUserPhoto from "../components/modals/create/CreateUserPhoto";
 
 
 const Profile = () => {
   const [createUserInfoVisible, setCreateUserInfoVisible] = useState(false)
-  const [createUserPhotoVisible, setCreateUserPhotoVisible] = useState(false)
   const {user} = useContext(Context)
   let name = false
 
@@ -24,15 +22,6 @@ const Profile = () => {
           <Image width={250} height={250} src={process.env.REACT_APP_API_URL + "img"}/>
         </Col>
       </Row>
-      <Row className="pt-3 ml-1">
-        <Button
-          variant={"outline-dark"}
-          className="mt-4 p-2"
-          onClick={()=> setCreateUserPhotoVisible(true)}
-        >
-          Редагувати фото
-        </Button>
-      </Row>
       <Row className="pt-1 ml-1">
         <Button
           variant={"outline-dark"}
@@ -43,7 +32,6 @@ const Profile = () => {
         </Button>
       </Row>
       <CreateUserInfo show={createUserInfoVisible} onHide={()=> setCreateUserInfoVisible(false)}/>
-      <CreateUserPhoto show={createUserPhotoVisible} onHide={()=> setCreateUserPhotoVisible(false)}/>
     </Container>
   );
 };

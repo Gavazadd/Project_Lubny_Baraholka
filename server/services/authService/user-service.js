@@ -1,9 +1,9 @@
-const {User} = require("../models/models");
+const {User} = require("../../models/models");
 const bcrypt = require('bcrypt')
 const uuid = require('uuid')
 const mailService = require('./mail-service')
 const tokenService = require('./token-service')
-const ApiError = require('../error/ApiError')
+const ApiError = require('../../error/ApiError')
 class UserService {
     async registration (email, password){
       const candidate = await User.findOne({where: {email}})

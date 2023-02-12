@@ -1,5 +1,5 @@
-const tokenService = require('../service/token-service')
-const userService = require('../service/user-service')
+const tokenService = require('../services/authService/token-service')
+const userService = require('../services/authService/user-service')
 const {validationResult} = require('express-validator')
 const ApiError = require('../error/ApiError')
 const {User} = require("../models/models");

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const tokenService = require('../service/token-service');
+const tokenService = require('../services/authService/token-service');
 const ApiError = require("../error/ApiError");
 
 module.exports = function(role) {

@@ -1,5 +1,5 @@
 const ApiError = require('../error/ApiError');
-const tokenService = require('../service/token-service');
+const tokenService = require('../services/authService/token-service');
 
 module.exports = function (req, res, next) {
   if (req.method === "OPTIONS") {
