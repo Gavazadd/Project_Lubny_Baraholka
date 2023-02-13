@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Switch, Route, Redirect, useHistory} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 import {adminRoutes, authRoutes, publicRoutes} from "../routes";
 import {SHOP_ROUTE} from "../utils/consts";
 import {Context} from "../index";
@@ -8,13 +8,10 @@ import jwtDecode from "jwt-decode";
 
 const AppRouter = observer(() => {
   const {user} = useContext(Context)
-  const history = useHistory()
   let role = false
 
   if (user.isAuth){
     role = jwtDecode(localStorage.getItem('token')).role;
-  }else {
-    history.push(SHOP_ROUTE)
   }
 
 
