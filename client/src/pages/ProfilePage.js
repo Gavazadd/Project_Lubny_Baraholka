@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Button, Card, Col, Container, Image, Row} from "react-bootstrap";
+import {Button, Col, Container, Image, Row} from "react-bootstrap";
 import jwtDecode from "jwt-decode";
 import {Context} from "../index";
 import CreateUserInfo from "../components/modals/create/CreateUserInfo";
@@ -11,6 +11,7 @@ const ProfilePage = () => {
   let name
   let id
 
+  console.log(user.isInfo);
   if (user.isAuth){
     name = jwtDecode(localStorage.getItem('token')).email;
     id = jwtDecode(localStorage.getItem('token')).id;
@@ -27,7 +28,7 @@ const ProfilePage = () => {
       <Row>
         <Col md={4}>
           <h2 className="ml-1"> Вітаємо вас, {userInfo.name} !</h2>
-          <Image className="ml-4" width={250} height={250} src={process.env.REACT_APP_API_URL + userInfo.img}/>
+          <Image className="ml-2" width={300} height={350} src={process.env.REACT_APP_API_URL + userInfo.img}/>
         </Col>
         <Col>
         <h1>Ваша інформація</h1>
@@ -35,7 +36,7 @@ const ProfilePage = () => {
           Пошта: {name}
         </Col>
         <Col style={{background: 'transparent', padding: 10}}>
-          Номер телефону: {userInfo.phone}
+          Номер телефону: +380{userInfo.phone}
         </Col>
         {userInfo.additional_info.map((info, index) =>
           <Col key={info.id} style={{background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10}}>

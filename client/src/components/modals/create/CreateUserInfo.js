@@ -42,6 +42,7 @@ const CreateUserInfo = observer(({show, onHide}) => {
     formData.append('userId', id)
     formData.append('info', JSON.stringify(info))
     createUserInfo(formData).then(data => onHide())
+    user.setIsInfo(true)
   }
 
   return (

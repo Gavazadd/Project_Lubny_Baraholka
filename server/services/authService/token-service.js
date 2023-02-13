@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 class TokenService {
-  generateJwt = (id, email, isActivated, role) => {
-    return jwt.sign({id, email, isActivated, role}, process.env.SECRET_KEY, {expiresIn: '3d'}
+  generateJwt = (id, email,  role) => {
+    return jwt.sign({id, email, role}, process.env.SECRET_KEY, {expiresIn: '3d'}
     )
   }
 

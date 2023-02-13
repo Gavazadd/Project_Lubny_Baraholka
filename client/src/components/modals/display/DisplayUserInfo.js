@@ -15,7 +15,9 @@ const DisplayUserInfo = ({show, onHide}) => {
     const data = await fetchOneDevice(id)
     const userData = await fetchUserInfo(data.userId)
     setUserInfo(userData)
-  }}, [])
+  }
+  fetchData()
+  }, [])
 
   return (
     <Modal
