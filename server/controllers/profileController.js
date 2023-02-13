@@ -5,7 +5,6 @@ const imgService = require('../services/imgService/create-img')
 class ProfileController {
   async create(req, res, next) {
     try{
-      console.log(req.body)
       let {name, phone, userId, info} =  req.body
       const {img} = req.files
       const createdImg = await imgService.createImg(img)
@@ -32,14 +31,14 @@ class ProfileController {
 
 
   async getOne(req, res) {
-    const {userId} = req.body
-    const device = await UserInfo.findOne(
+    const {userId} = req.query
+    const userInfo = await UserInfo.findOne(
       {
         where: {userId},
-        include: [{model: UserAdditionalInfo, as: 'info'}]
+        include: [{model: UserAdditionalInfo, as: 'additional_info'}]
       },
     )
-    return res.json(device)
+    return res.json(userInfo)
   }
 }
 

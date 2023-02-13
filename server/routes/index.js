@@ -11,6 +11,6 @@ router.use('/user', userAuthRouter)
 router.use('/type', offerTypeRouter)
 router.use('/category', categoryRouter)
 router.use('/device', deviceRouter)
-router.use('/profile', userProfileRouter)
+router.use('/userInfo', userProfileRouter)
 
 module.exports = router

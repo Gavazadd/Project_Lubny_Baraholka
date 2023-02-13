@@ -1,9 +1,10 @@
 import React from 'react';
 import {Container} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {observer} from "mobx-react-lite";
 
 
-const Activate = () => {
+const ActivatePage = observer(() => {
   return (
     <Container className="p-4">
       <div className="container">
@@ -18,6 +19,6 @@ const Activate = () => {
       </div>
     </Container>
   );
-};
+});
 
-export default Activate;
+export default ActivatePage;

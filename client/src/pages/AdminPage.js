@@ -6,7 +6,7 @@ import DeleteOfferType from "../components/modals/delete/DeleteOfferType";
 import DeleteCategory from "../components/modals/delete/DeleteCategory";
 
 
-const Admin = () =>{
+const AdminPage = () =>{
   const [createCategoryVisible, setCreateCategoryVisible] = useState(false)
   const [deleteCategoryVisible, setDeleteCategoryVisible] = useState(false)
   const [createOfferTypeVisible, setCreateOfferTypeVisible] = useState(false)
@@ -51,4 +51,4 @@ const Admin = () =>{
   );
 };
 
-export default Admin;;
+export default AdminPage;;

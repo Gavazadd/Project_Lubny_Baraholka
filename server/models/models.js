@@ -53,7 +53,7 @@ const CategoryType = sequelize.define('category_type', {
 User.hasOne(UserInfo)
 UserInfo.belongsTo(User)
 
-UserInfo.hasOne(UserAdditionalInfo)
+UserInfo.hasMany(UserAdditionalInfo, {as: 'additional_info'})
 UserAdditionalInfo.belongsTo(UserInfo)
 
 User.hasMany(Device)

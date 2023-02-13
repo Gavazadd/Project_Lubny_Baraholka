@@ -3,10 +3,10 @@ import Modal from "react-bootstrap/Modal";
 import {Button, Form, Row, Col} from "react-bootstrap";
 import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
-import {createProfile} from "../../../http/profileAPI";
+import {createUserInfo} from "../../../http/profileAPI";
 import jwtDecode from "jwt-decode";
 
-const CreateDevice = observer(({show, onHide}) => {
+const CreateUserInfo = observer(({show, onHide}) => {
   const {user} = useContext(Context)
 
   let id
@@ -41,7 +41,7 @@ const CreateDevice = observer(({show, onHide}) => {
     formData.append('img', file)
     formData.append('userId', id)
     formData.append('info', JSON.stringify(info))
-    createProfile(formData).then(data => onHide())
+    createUserInfo(formData).then(data => onHide())
   }
 
   return (
@@ -118,4 +118,4 @@ const CreateDevice = observer(({show, onHide}) => {
   );
 });
 
-export default CreateDevice;
+export default CreateUserInfo;

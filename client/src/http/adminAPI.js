@@ -7,7 +7,6 @@ export const createCategory = async (category) => {
 
 export const deleteCategory = async (category) => {
   const {data} = await $authHost.delete('api/category', { data: category  })
-  console.log(data)
   return data
 }
 

@@ -1,4 +1,4 @@
-import Admin from "./pages/Admin";
+import AdminPage from "./pages/AdminPage";
 import {
   ACTIVATE_ROUTE,
   ADMIN_ROUTE,
@@ -8,12 +8,12 @@ import {
   REGISTRATION_ROUTE,
   SHOP_ROUTE
 } from "./utils/consts";
-import Shop from "./pages/Shop";
-import Auth from "./pages/Auth";
+import ShopPage from "./pages/ShopPage";
+import AuthPage from "./pages/AuthPage";
 import DevicePage from "./pages/DevicePage";
-import Activate from "./pages/Activate";
-import CreateAnnouncement from "./pages/CreateAnnouncement";
-import Profile from "./pages/Profile";
+import ActivatePage from "./pages/ActivatePage";
+import CreateAnnouncement from "./pages/CreateAnnouncementPage";
+import ProfilePage from "./pages/ProfilePage";
 
 export const authRoutes = [
   {
@@ -22,32 +22,32 @@ export const authRoutes = [
   },
   {
     path: PROFILE_ROUTE,
-    Component: Profile
+    Component: ProfilePage
   }
 ]
 export const adminRoutes = [
   {
     path: ADMIN_ROUTE,
-    Component: Admin
+    Component: AdminPage
   }
 ]
 
 export const publicRoutes = [
   {
     path: ACTIVATE_ROUTE,
-    Component: Activate
+    Component: ActivatePage
   },
   {
     path: SHOP_ROUTE,
-    Component: Shop
+    Component: ShopPage
   },
   {
     path: LOGIN_ROUTE,
-    Component: Auth
+    Component: AuthPage
   },
   {
     path: REGISTRATION_ROUTE,
-    Component: Auth
+    Component: AuthPage
   },
   {
     path: DEVICE_ROUTE + '/:id',

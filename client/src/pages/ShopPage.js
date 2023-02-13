@@ -12,7 +12,7 @@ import {fetchDevices} from "../http/deviceAPI";
 import Pages from "../components/Pages";
 
 
-const Shop = observer(() => {
+const ShopPage = observer(() => {
   const {device} = useContext(Context)
 
   useEffect(() => {
@@ -46,4 +46,4 @@ const Shop = observer(() => {
   )
 })
 
-export default Shop;
+export default ShopPage;

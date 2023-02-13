@@ -9,7 +9,7 @@ import {login, registration} from "../http/userAPI";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 
-const Auth = observer(() => {
+const AuthPage = observer(() => {
   const {user} = useContext(Context)
   const location = useLocation()
   const history = useHistory()
@@ -79,4 +79,4 @@ const Auth = observer(() => {
   );
 });
 
-export default Auth;
+export default AuthPage;
