@@ -4,7 +4,9 @@ import {
   ADMIN_ROUTE,
   CREATE_ROUTE,
   DEVICE_ROUTE,
-  LOGIN_ROUTE, PROFILE_ROUTE,
+  LOGIN_ROUTE,
+  PROFILE_Create_ROUTE,
+  PROFILE_Display_ROUTE,
   REGISTRATION_ROUTE,
   SHOP_ROUTE
 } from "./utils/consts";
@@ -13,17 +15,23 @@ import AuthPage from "./pages/AuthPage";
 import DevicePage from "./pages/DevicePage";
 import ActivatePage from "./pages/ActivatePage";
 import CreateAnnouncement from "./pages/CreateAnnouncementPage";
-import ProfilePage from "./pages/ProfilePage";
+import ProfileDisplayPage from "./pages/ProfilePages/ProfileDisplayPage";
+import ProfileCreatePage from "./pages/ProfilePages/ProfileCreatePage";
 
 export const authRoutes = [
+  {
+    path: PROFILE_Create_ROUTE,
+    Component: ProfileCreatePage
+  },
+  {
+    path: PROFILE_Display_ROUTE,
+    Component: ProfileDisplayPage
+  },
   {
     path: CREATE_ROUTE,
     Component: CreateAnnouncement
   },
-  {
-    path: PROFILE_ROUTE,
-    Component: ProfilePage
-  }
+
 ]
 export const adminRoutes = [
   {

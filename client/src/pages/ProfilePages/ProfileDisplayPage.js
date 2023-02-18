@@ -1,34 +1,49 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Button, Col, Container, Image, Row} from "react-bootstrap";
 import jwtDecode from "jwt-decode";
-import {Context} from "../index";
-import CreateUserInfo from "../components/modals/create/CreateUserInfo";
-import {fetchUserInfo} from "../http/profileAPI";
+import {Context} from "../../index";
+import RewriteUserInfo from "../../components/modals/rewrite/RewriteUserInfo";
+import CreateUserImage from "../../components/modals/rewrite/RewriteUserImage";
+import {fetchUserImg, fetchUserInfo} from "../../http/profileAPI";
 
-const ProfilePage = () => {
+
+const ProfileDisplayPage = () => {
   const [userInfo, setUserInfo] = useState({additional_info: []})
+  const [userImg, setUserImg] = useState()
   const {user} = useContext(Context)
   let name
   let id
 
-  console.log(user.isInfo);
   if (user.isAuth){
     name = jwtDecode(localStorage.getItem('token')).email;
     id = jwtDecode(localStorage.getItem('token')).id;
   }
 
-  useEffect(() => {
-    fetchUserInfo(id).then(data => setUserInfo(data))
+  useEffect( () => {
+    async function fetchData(){
+    const image = await fetchUserImg(id)
+    setUserImg(image.img)
+    const data = await fetchUserInfo(id)
+    setUserInfo(data)
+    }
+
+    fetchData()
+
   }, [])
 
   const [createUserInfoVisible, setCreateUserInfoVisible] = useState(false)
+  const [createUserImageVisible, setCreateUserImageVisible] = useState(false)
 
   return (
     <Container className="d-flex flex-column">
       <Row>
         <Col md={4}>
           <h2 className="ml-1"> Вітаємо вас, {userInfo.name} !</h2>
-          <Image className="ml-2" width={300} height={350} src={process.env.REACT_APP_API_URL + userInfo.img}/>
+          { userImg ?
+              <Image  width={300} height={350} src={process.env.REACT_APP_API_URL + userImg}/>
+              :
+              <Image  width={250} height={250} src="images/user.jpg"/>
+          }
         </Col>
         <Col>
         <h1>Ваша інформація</h1>
@@ -47,16 +62,26 @@ const ProfilePage = () => {
       </Row>
       <Row className="pt-1 ml-1">
         <Button
+            variant={"outline-dark"}
+            className="mt-4 ml-3 "
+            onClick={()=> setCreateUserImageVisible(true)}
+        >
+          Редагувати фото
+        </Button>
+      </Row>
+      <Row className="pt-1 ml-1">
+        <Button
           variant={"outline-dark"}
-          className="mt-4 p-2"
+          className="mt-4 ml-3 "
           onClick={()=> setCreateUserInfoVisible(true)}
         >
           Редагувати інформацію
         </Button>
       </Row>
-      <CreateUserInfo show={createUserInfoVisible} onHide={()=> setCreateUserInfoVisible(false)}/>
+      <RewriteUserInfo show={createUserInfoVisible} onHide={()=> setCreateUserInfoVisible(false)}/>
+      <CreateUserImage show={createUserImageVisible} onHide={()=> setCreateUserImageVisible(false)}/>
     </Container>
   );
 };
 
-export default ProfilePage;
+export default ProfileDisplayPage;

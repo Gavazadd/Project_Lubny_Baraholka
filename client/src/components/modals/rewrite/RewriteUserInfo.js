@@ -3,10 +3,10 @@ import Modal from "react-bootstrap/Modal";
 import {Button, Form, Row, Col} from "react-bootstrap";
 import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
-import {createUserInfo} from "../../../http/profileAPI";
+import {rewriteUserInfo} from "../../../http/profileAPI";
 import jwtDecode from "jwt-decode";
 
-const CreateUserInfo = observer(({show, onHide}) => {
+const RewriteUserInfo = observer(({show, onHide}) => {
   const {user} = useContext(Context)
 
   let id
@@ -17,7 +17,6 @@ const CreateUserInfo = observer(({show, onHide}) => {
 
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
-  const [file, setFile] = useState(null)
   const [info, setInfo] = useState([])
 
   const addInfo = () => {
@@ -30,19 +29,22 @@ const CreateUserInfo = observer(({show, onHide}) => {
     setInfo(info.map(i => i.number === number ? {...i, [key]: value} : i))
   }
 
-  const selectFile = e => {
-    setFile(e.target.files[0])
-  }
 
-  const addProfileInfo = () => {
-    const formData = new FormData()
-    formData.append('name', name)
-    formData.append('phone', phone)
-    formData.append('img', file)
-    formData.append('userId', id)
-    formData.append('info', JSON.stringify(info))
-    createUserInfo(formData).then(data => onHide())
-    user.setIsInfo(true)
+  const addProfileInfo = async () => {
+    try {
+      const formData = new FormData()
+      formData.append('name', name)
+      formData.append('phone', phone)
+      formData.append('userId', id)
+      formData.append('info', JSON.stringify(info))
+      await rewriteUserInfo(formData)
+      onHide()
+      window.location.reload()
+    }catch (e) {
+      alert(e.response.data.message)
+    }
+
+
   }
 
   return (
@@ -71,17 +73,12 @@ const CreateUserInfo = observer(({show, onHide}) => {
             placeholder="Уведіть ваш номер телефону"
             type="number"
           />
-          <Form.Control
-            className="mt-3"
-            onChange={selectFile}
-            type="file"
-          />
           <hr/>
           <Button
             variant={"outline-dark"}
             onClick={addInfo}
           >
-            Добавити характеристики
+            Добавити додаткову інформацію
           </Button>
           {info.map(i =>
             <Row className="mt-4" key={i.number}>
@@ -89,14 +86,14 @@ const CreateUserInfo = observer(({show, onHide}) => {
                 <Form.Control
                   value={i.title}
                   onChange={(e) => changeInfo('title', e.target.value, i.number)}
-                  placeholder="Уведіть назву"
+                  placeholder="Назва"
                 />
               </Col>
               <Col md={4}>
                 <Form.Control
                   value={i.description}
                   onChange={(e) => changeInfo('description', e.target.value, i.number)}
-                  placeholder="Уведіть опис"
+                  placeholder="Опис"
                 />
               </Col>
               <Col md={4}>
@@ -119,4 +116,4 @@ const CreateUserInfo = observer(({show, onHide}) => {
   );
 });
 
-export default CreateUserInfo;
+export default RewriteUserInfo;
