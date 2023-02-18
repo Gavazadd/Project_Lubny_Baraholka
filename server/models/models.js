@@ -7,14 +7,19 @@ const User = sequelize.define('user', {
   password: {type: DataTypes.STRING, allowNull: false},
   isActivated:{type: DataTypes.BOOLEAN, defaultValue: false},
   role: {type: DataTypes.STRING, defaultValue: "USER"},
+  isUserInfo:{type: DataTypes.BOOLEAN, defaultValue: false},
   activationLink:{type: DataTypes.STRING}
 })
 
 const UserInfo = sequelize.define('user_info', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  name: {type: DataTypes.STRING, allowNull: false},
+  name: {type: DataTypes.STRING, allowNull: false, allowNull: false},
   phone: {type: DataTypes.INTEGER, unique: true, allowNull: false },
-  img: {type: DataTypes.STRING, allowNull: false}
+})
+
+const UserImg = sequelize.define('user_img', {
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  img: {type: DataTypes.STRING, defaultValue: null}
 })
 
 const UserAdditionalInfo = sequelize.define('user_additional_info', {
@@ -53,6 +58,9 @@ const CategoryType = sequelize.define('category_type', {
 User.hasOne(UserInfo)
 UserInfo.belongsTo(User)
 
+User.hasOne(UserImg)
+UserImg.belongsTo(User)
+
 UserInfo.hasMany(UserAdditionalInfo, {as: 'additional_info'})
 UserAdditionalInfo.belongsTo(UserInfo)
 
@@ -79,5 +87,6 @@ module.exports = {
   CategoryType,
   DeviceInfo,
   UserInfo,
-  UserAdditionalInfo
+  UserAdditionalInfo,
+  UserImg
 }

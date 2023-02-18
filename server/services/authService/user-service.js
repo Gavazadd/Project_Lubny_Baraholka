@@ -14,7 +14,7 @@ class UserService {
       const activationLink = uuid.v4()
       const user = await User.create({email, password: hashPassword, activationLink})
       await mailService.sendActivationMail(email, `${process.env.API_URL}/api/user/activate/${activationLink}`)
-      const token = tokenService.generateJwt(user.id, user.email, user.role)
+      const token = tokenService.generateJwt(user.id, user.email, user.isUserInfo, user.role)
 
       return {token}
     }
@@ -40,7 +40,7 @@ class UserService {
     if (!user.isActivated) {
       throw ApiError.badRequest('Непідтверджений аккаунт. Будь ласка перевірте вашу пошту')
     }
-    const token = tokenService.generateJwt(user.id, user.email, user.role)
+    const token = tokenService.generateJwt(user.id, user.email, user.isUserInfo, user.role)
 
     return {token}
   }
@@ -48,7 +48,7 @@ class UserService {
 
   async checking(id) {
     const user = await User.findOne({where:{id}})
-    const token = tokenService.generateJwt(user.id, user.email, user.role)
+    const token = tokenService.generateJwt(user.id, user.email, user.isUserInfo, user.role)
     return token
   }
 

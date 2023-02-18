@@ -1,8 +1,7 @@
-const tokenService = require('../services/authService/token-service')
 const userService = require('../services/authService/user-service')
 const {validationResult} = require('express-validator')
 const ApiError = require('../error/ApiError')
-const {User} = require("../models/models");
+
 
 class UserAuthController {
   async registration(req, res, next) {
