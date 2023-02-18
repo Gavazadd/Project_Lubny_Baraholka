@@ -41,6 +41,7 @@ const CreateUserInfo = observer(({show, onHide}) => {
             formData.append('info', JSON.stringify(info))
             await createUserInfo(formData)
             history.push(PROFILE_Display_ROUTE)
+            window.location.reload()
         }catch (e) {
             alert(e.response.data.message)
         }

@@ -46,6 +46,14 @@ class DeviceController {
     return res.json(devices)
   }
 
+  async getUserDevices(req, res) {
+    let {userId} = req.query
+
+    const devices = await Device.findAndCountAll({where:{userId}})
+
+    return res.json(devices)
+  }
+
 
   async getOne(req, res) {
     const {id} = req.params

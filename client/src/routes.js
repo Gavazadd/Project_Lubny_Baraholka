@@ -8,7 +8,7 @@ import {
   PROFILE_Create_ROUTE,
   PROFILE_Display_ROUTE,
   REGISTRATION_ROUTE,
-  SHOP_ROUTE
+  SHOP_ROUTE, USER_DEVICES_ROUTE
 } from "./utils/consts";
 import ShopPage from "./pages/ShopPage";
 import AuthPage from "./pages/AuthPage";
@@ -17,11 +17,17 @@ import ActivatePage from "./pages/ActivatePage";
 import CreateAnnouncement from "./pages/CreateAnnouncementPage";
 import ProfileDisplayPage from "./pages/ProfilePages/ProfileDisplayPage";
 import ProfileCreatePage from "./pages/ProfilePages/ProfileCreatePage";
+import UserDevicesPage from "./pages/UserDevicesPage";
+
 
 export const authRoutes = [
   {
     path: PROFILE_Create_ROUTE,
     Component: ProfileCreatePage
+  },
+  {
+    path: USER_DEVICES_ROUTE,
+    Component: UserDevicesPage
   },
   {
     path: PROFILE_Display_ROUTE,

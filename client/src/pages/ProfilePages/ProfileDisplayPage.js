@@ -5,12 +5,15 @@ import {Context} from "../../index";
 import RewriteUserInfo from "../../components/modals/rewrite/RewriteUserInfo";
 import CreateUserImage from "../../components/modals/rewrite/RewriteUserImage";
 import {fetchUserImg, fetchUserInfo} from "../../http/profileAPI";
+import {USER_DEVICES_ROUTE} from "../../utils/consts";
+import {useHistory} from "react-router-dom";
 
 
 const ProfileDisplayPage = () => {
   const [userInfo, setUserInfo] = useState({additional_info: []})
   const [userImg, setUserImg] = useState()
   const {user} = useContext(Context)
+  const history = useHistory()
   let name
   let id
 
@@ -38,14 +41,14 @@ const ProfileDisplayPage = () => {
     <Container className="d-flex flex-column">
       <Row>
         <Col md={4}>
-          <h2 className="ml-1"> Вітаємо вас, {userInfo.name} !</h2>
+          <h2 className="ml-1"> Вітаємо вас, {userInfo.name}</h2>
           { userImg ?
               <Image  width={300} height={350} src={process.env.REACT_APP_API_URL + userImg}/>
               :
-              <Image  width={250} height={250} src="images/user.jpg"/>
+              <Image  width={300} height={300} src="images/user.jpg"/>
           }
         </Col>
-        <Col>
+        <Col className="ml-3">
         <h1>Ваша інформація</h1>
         <Col style={{background: 'lightgray', padding: 10}}>
           Пошта: {name}
@@ -58,6 +61,13 @@ const ProfileDisplayPage = () => {
             {info.title}: {info.description}
           </Col>
         )}
+          <Button
+              variant={"outline-dark"}
+              onClick={() => history.push(USER_DEVICES_ROUTE)}
+              className="mt-5"
+          >
+            Переглянути ваші оголошення
+          </Button>
         </Col>
       </Row>
       <Row className="pt-1 ml-1">
