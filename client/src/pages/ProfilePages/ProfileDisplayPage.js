@@ -29,9 +29,7 @@ const ProfileDisplayPage = () => {
     const data = await fetchUserInfo(id)
     setUserInfo(data)
     }
-
     fetchData()
-
   }, [])
 
   const [createUserInfoVisible, setCreateUserInfoVisible] = useState(false)

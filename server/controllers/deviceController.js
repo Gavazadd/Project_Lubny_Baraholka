@@ -65,6 +65,16 @@ class DeviceController {
     )
     return res.json(device)
   }
+
+  async destroyOne(req, res) {
+    const {id} = req.query
+    const deviceInfo = await DeviceInfo.destroy({where: {deviceId: id}})
+    const device = await Device.destroy({where: {id}})
+    return res.json([device, deviceInfo])
+  }
 }
+
+
+
 
 module.exports = new DeviceController()
