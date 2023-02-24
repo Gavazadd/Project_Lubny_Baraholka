@@ -31,7 +31,7 @@ const UserAdditionalInfo = sequelize.define('user_additional_info', {
 const Device = sequelize.define('device', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   name: {type: DataTypes.STRING, allowNull: false},
-  price: {type: DataTypes.INTEGER, allowNull: false},
+  price: {type: DataTypes.BIGINT, allowNull: false},
   img: {type: DataTypes.STRING, allowNull: false}
 })
 
@@ -39,6 +39,10 @@ const DeviceInfo = sequelize.define('device_info', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   title: {type: DataTypes.STRING, allowNull: false},
   description: {type: DataTypes.STRING, allowNull: false}
+})
+
+const FavouriteDevice = sequelize.define('favourite_device', {
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
 })
 
 const Category = sequelize.define('category', {
@@ -55,8 +59,13 @@ const CategoryType = sequelize.define('category_type', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
 })
 
+FavouriteDevice
+
 User.hasOne(UserInfo)
 UserInfo.belongsTo(User)
+
+User.hasMany(FavouriteDevice)
+FavouriteDevice.belongsTo(User)
 
 User.hasOne(UserImg)
 UserImg.belongsTo(User)
@@ -76,6 +85,9 @@ Device.belongsTo(OfferType)
 Device.hasMany(DeviceInfo, {as: 'info'});
 DeviceInfo.belongsTo(Device)
 
+Device.hasMany(FavouriteDevice);
+FavouriteDevice.belongsTo(Device)
+
 Category.belongsToMany(OfferType, {through: CategoryType })
 OfferType.belongsToMany(Category, {through: CategoryType })
 
@@ -88,5 +100,6 @@ module.exports = {
   DeviceInfo,
   UserInfo,
   UserAdditionalInfo,
-  UserImg
+  UserImg,
+  FavouriteDevice
 }

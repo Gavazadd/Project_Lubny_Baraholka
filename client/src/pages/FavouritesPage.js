@@ -5,11 +5,11 @@ import Col from "react-bootstrap/Col";
 import DeviceList from "../components/DeviceList";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
-import {fetchUserDevices} from "../http/deviceAPI";
 import jwtDecode from "jwt-decode";
+import {fetchFavouriteDevices} from "../http/favouritesAPI";
 
 
-const UserDevicesPage = observer(() => {
+const FavouritesPage = observer(() => {
     const {device} = useContext(Context)
     const {user} = useContext(Context)
     let userId
@@ -19,15 +19,15 @@ const UserDevicesPage = observer(() => {
     }
 
     useEffect(() => {
-        fetchUserDevices(userId).then(data => {
-            device.setDevices(data.rows)
-
+        fetchFavouriteDevices(userId).then(data => {
+            device.setDevices(data)
         })
     },)
+
     return (
         <Container>
             <h1>
-                Ваші оголошення
+                Ваші обрані оголошення
             </h1>
             <Row className="mt-2">
                 <Col md={9}>
@@ -38,4 +38,4 @@ const UserDevicesPage = observer(() => {
     )
 })
 
-export default UserDevicesPage;
+export default FavouritesPage;

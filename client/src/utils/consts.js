@@ -8,4 +8,5 @@ export const REGISTRATION_ROUTE = '/registration'
 export const SHOP_ROUTE = '/'
 export const DEVICE_ROUTE = '/device'
 export const USER_DEVICES_ROUTE = '/userDevices'
+export const FAVOURITES_ROUTE = '/favourites'
 

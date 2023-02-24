@@ -3,7 +3,7 @@ import {
   ACTIVATE_ROUTE,
   ADMIN_ROUTE,
   CREATE_ROUTE,
-  DEVICE_ROUTE,
+  DEVICE_ROUTE, FAVOURITES_ROUTE,
   LOGIN_ROUTE,
   PROFILE_Create_ROUTE,
   PROFILE_Display_ROUTE,
@@ -18,12 +18,17 @@ import CreateAnnouncement from "./pages/CreateAnnouncementPage";
 import ProfileDisplayPage from "./pages/ProfilePages/ProfileDisplayPage";
 import ProfileCreatePage from "./pages/ProfilePages/ProfileCreatePage";
 import UserDevicesPage from "./pages/UserDevicesPage";
+import FavouritesPage from "./pages/FavouritesPage";
 
 
 export const authRoutes = [
   {
     path: PROFILE_Create_ROUTE,
     Component: ProfileCreatePage
+  },
+  {
+    path: FAVOURITES_ROUTE,
+    Component: FavouritesPage
   },
   {
     path: USER_DEVICES_ROUTE,

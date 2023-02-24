@@ -5,7 +5,7 @@ import {Context} from "../../index";
 import RewriteUserInfo from "../../components/modals/rewrite/RewriteUserInfo";
 import CreateUserImage from "../../components/modals/rewrite/RewriteUserImage";
 import {fetchUserImg, fetchUserInfo} from "../../http/profileAPI";
-import {USER_DEVICES_ROUTE} from "../../utils/consts";
+import {FAVOURITES_ROUTE, USER_DEVICES_ROUTE} from "../../utils/consts";
 import {useHistory} from "react-router-dom";
 
 
@@ -59,6 +59,7 @@ const ProfileDisplayPage = () => {
             {info.title}: {info.description}
           </Col>
         )}
+          <Col>
           <Button
               variant={"outline-dark"}
               onClick={() => history.push(USER_DEVICES_ROUTE)}
@@ -66,6 +67,16 @@ const ProfileDisplayPage = () => {
           >
             Переглянути ваші оголошення
           </Button>
+          </Col>
+          <Col>
+          <Button
+              variant={"outline-dark"}
+              onClick={() => history.push(FAVOURITES_ROUTE)}
+              className="mt-4"
+          >
+            Переглянути ваші обрані
+          </Button>
+          </Col>
         </Col>
       </Row>
       <Row className="pt-1 ml-1">

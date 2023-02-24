@@ -50,7 +50,6 @@ class DeviceController {
     let {userId} = req.query
 
     const devices = await Device.findAndCountAll({where:{userId}})
-
     return res.json(devices)
   }
 
