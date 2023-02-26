@@ -13,7 +13,7 @@ const User = sequelize.define('user', {
 
 const UserInfo = sequelize.define('user_info', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  name: {type: DataTypes.STRING, allowNull: false, allowNull: false},
+  name: {type: DataTypes.STRING, allowNull: false},
   phone: {type: DataTypes.INTEGER, unique: true, allowNull: false },
 })
 
@@ -58,8 +58,6 @@ const OfferType = sequelize.define('offer_type', {
 const CategoryType = sequelize.define('category_type', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
 })
-
-FavouriteDevice
 
 User.hasOne(UserInfo)
 UserInfo.belongsTo(User)
