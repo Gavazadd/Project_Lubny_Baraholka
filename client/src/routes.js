@@ -1,4 +1,3 @@
-import AdminPage from "./pages/AdminPage";
 import {
   ACTIVATE_ROUTE,
   ADMIN_ROUTE,
@@ -10,6 +9,7 @@ import {
   REGISTRATION_ROUTE,
   SHOP_ROUTE, USER_DEVICES_ROUTE
 } from "./utils/consts";
+import AdminPage from "./pages/AdminPage";
 import ShopPage from "./pages/ShopPage";
 import AuthPage from "./pages/AuthPage";
 import DevicePage from "./pages/DevicePage";
@@ -34,6 +34,15 @@ export const authRoutes = [
     path: USER_DEVICES_ROUTE,
     Component: UserDevicesPage
   },
+]
+export const adminRoutes = [
+  {
+    path: ADMIN_ROUTE,
+    Component: AdminPage
+  }
+]
+
+export const isInfoRoutes = [
   {
     path: PROFILE_Display_ROUTE,
     Component: ProfileDisplayPage
@@ -41,13 +50,6 @@ export const authRoutes = [
   {
     path: CREATE_ROUTE,
     Component: CreateAnnouncement
-  },
-
-]
-export const adminRoutes = [
-  {
-    path: ADMIN_ROUTE,
-    Component: AdminPage
   }
 ]
 

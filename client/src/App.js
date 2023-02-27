@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {BrowserRouter, useHistory} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import Navbar from "./components/NavBar";
 import {observer} from "mobx-react-lite";
